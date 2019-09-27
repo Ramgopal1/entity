@@ -5,54 +5,270 @@
         <title>EntityGenerator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+            .header{
+               /* color:aliceblue; */
+               background-color: #F48024;
+               /* text-align: center; */
+            }
+
+            .row1 {
+                margin-bottom: 40px !important;
+                margin-left: -15px !important;
+            }
+            .showAlert{
+                display: block !important;
+            }
+			.hide-alert {
+				display:none;
+			}
+            .row {
+                margin-bottom: 20px;
+            }
+            select {
+                width: 100px;
+            }
+            .btn-primary{
+                background-color: #F48024;
+                border-color:aliceblue;
+            }
+            h5 {
+                color: #F48024;
+            }
+            logoicon {
+                float: left;
+                height: 20px;
+                background-color: aliceblue;
+                vertical-align: middle;
+                margin-top: 16px;
+                border-radius: 4px;
+            }
+        
+
+
+    </style>
     </head>
 
     <body>
-        <div class="container">
-            <div class="row">
-                <h2>Entity Generator</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <span>Select Type of DB: </span>
-                    <select>
-                        <option value="core">Core</option>
-                        <option value="misc">misc</option>
-                        <option value="bancs">bancs</option>
-                        <option value="user">user</option>
-                    </select>
+        <div class="container-fluid">
+            <div class="row1">
+                
+                <div class="header col-md-12 text-center text-white shadow p-3 mb-5 rounded">
+                        <img class = "col-md-2" src="logo.png" id="logoicon" alt="ING Logo"> <h2 class = "col-md-10">Entity Generator</h2>
+                    <p >Creates the Entity DAO for Java applications</p>
                 </div>
             </div>
+            <div class="alert alert-success hide-alert" id= "resultAlert" role="alert">
+                   Result:
+                </div>
+            <form name="entityForm" id="entityForm" method="POST">
+
+                <div class="row">
+                        <div class="col-sm-3">
+                        
+                            <h5><u>Solution: 1</u></h5>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <span>Select files:</span>
+                    </div>
+                    <div class="col-sm-10">
+                            <input type="file" name="myFile" id="fileItem" accept=".jpg,.sql"><br><br>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-sm-2">
+                        <button type="button" class = "btn btn-primary" onclick="createEntity()">Generate Entity</button>
+                    </div>
+                    <div class="col-sm-10"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                    
+                        <h5><u>Solution: 2 (Yet to Be Integrated)</u></h5>
+                    </div>
+                    <div class="col-sm-2" id="loader"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                    
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <span>Select Type of DB: </span>
+                    </div>
+                    <div class="col-sm-10">
+                        <select id="dbOption">
+                            <option value="core">Core</option>
+                            <option value="misc">misc</option>
+                            <option value="bancs">bancs</option>
+                            <option value="user">user</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-2">
+                        <span>Select Type of Schema: </span>
+                    </div>
+                    <div class="col-sm-10">
+                        <select id="schemaOption">
+                            <option value="entity">Entity</option>
+                            <option value="misc">misc</option>
+                            <option value="bancs">bancs</option>
+                            <option value="user">user</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-2">
+                        <span>Select Type of Table: </span>
+                    </div>
+                    <div class="col-sm-10">
+                        <select id="tableOption">
+                            <option value="user">user</option>
+                            <option value="customer">customer</option>
+                            <option value="address">address</option>
+                            <option value="product">product</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                        <div class="col-sm-2">
+                            <button type="button" class = "btn btn-primary" disabled>Generate Entity</button>
+                        </div>
+                        <div class="col-sm-10"></div>
+                    </div>
+
+                
+                <!-- <div class="row">
+                    <div class="col-sm-2">
+                        <span>Select files:</span>
+                    </div>
+                    <div class="col-sm-10">
+                            <input type="file" name="myFile" id="fileItem" accept=".jpg,.sql"><br><br>
+                    </div>
+                </div> -->
+                
+            </form>
+            <!-- <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-2" id="loader"></div>
+                    <div class="col-sm-5"></div>
+            </div> -->
+    <script>
+        var e={};
+        var entityData;
+        var showResult = false;
+		function createEntity(){
+            var fileName = document.getElementById('fileItem').files[0].name;
             
-            <div class="row">
-                <div class="col-lg-12">
-                    <span>Select Type of Schema: </span>
-                    <select>
-                        <option value="entity">Entity</option>
-                        <option value="misc">misc</option>
-                        <option value="bancs">bancs</option>
-                        <option value="user">user</option>
-                    </select>
-                </div>
-            </div>
+            e.dbOption = document.getElementById("dbOption").value;
+            e.schemaOption = document.getElementById("schemaOption").value;
+            e.tableOption = document.getElementById("tableOption").value;
+            e.filePath = 'C:/EntityGenerator/' + fileName;
+            setAjaxloader();
+            var entityData = { "db" : e.dbOption,
+                                "schema" : e.schemaOption,
+                                "table" : e.tableOption,
+                                "filePath": e.filePath
+                            };
+			
+			var a = JSON.stringify(entityData );
+			 $.ajax({
+				url: 'http://localhost:8080/getEntity',
+            type: "POST",
+            cache: false,
+			contentType: "application/json",
+			
+			
+            data: a,
+			 crossDomain: true,
+            success: function(result) {
+                //do stuff
+				showResult = true;
+				$("div#resultAlert").toggleClass("showAlert");
+				$("div.showAlert").html(result);
+                setTimeout(function() {
+                       $('#resultAlert').css("display", "none");
+                }, 3000);
+
+
+				console.log(result);
+            }
             
-            <div class="row">
-                <div class="col-lg-12">
-                    <span>Select Type of Table: </span>
-                    <select>
-                        <option value="user">user</option>
-                        <option value="customer">customer</option>
-                        <option value="address">address</option>
-                        <option value="product">product</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <button >Generate Entity</button>
-                </div>
-            </div>
-        </div>
+
+        });
+
+        function setAjaxloader(){
+           
+                var self = $('#loader').html('<img src="loading.gif">');
+                setTimeout(function() {
+                        self.html('');
+                }, 2000);
+                return false;
+           
+            
+
+        }
+            /*$.post( 'http://localhost:8080/getEntity', JSON.stringify(entityData ))
+			
+            .done(function( data ) {
+                console.log("Response Data: " + data);
+                alert( "Data Loaded: " + data );
+            });*/
+
+            // jsonData = entityData;
+
+            // postAjax('http://localhost:8080/getEntity', entityData, function(data){ console.log(data); });
+        }
+
+       
+        // function postAjax(url, data, success) {
+        //     console.log("postcall");
+        //     var params = typeof data === 'string' ? data : Object.keys(data).map(
+        //             function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+        //         ).join('&');
+
+        //     var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+        //     xhr.open('POST', url);
+        //     xhr.send();
+        //     xhr.onreadystatechange = function() {
+        //             if (xhr.readyState===4 && xhr.status==200) { 
+        //                 success(xhr.responseText);
+        //             } else {
+        //                 error(xhr.responseText);
+        //                 console.log(xhr.responseText);
+        //             }
+        //         // xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        //         xhr.setRequestHeader('Content-Type', 'application/json');
+        //         xhr.send(params);
+        //         return xhr;
+        //     }
+        // }
+
+        
+
+
+    </script>
 
     </body>
 </html>
